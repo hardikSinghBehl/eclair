@@ -11,9 +11,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.behl.eclair.dto.request.UserCreationRequestDto;
 import com.behl.eclair.dto.request.UserLoginRequestDto;
+import com.behl.eclair.dto.request.UserUpdationRequestDto;
 import com.behl.eclair.dto.response.TokenResponseDto;
+import com.behl.eclair.dto.response.UserDetailsResponseDto;
 import com.behl.eclair.entity.User;
 import com.behl.eclair.repository.UserRepository;
+import com.behl.eclair.security.LoggedInUserDetailProvider;
 import com.behl.eclair.security.utility.JwtUtils;
 
 import lombok.AllArgsConstructor;
@@ -49,6 +52,22 @@ public class UserService {
 
 		return TokenResponseDto.builder().accessToken(jwtUtils.generateAccessToken(user))
 				.refreshToken(jwtUtils.generateRefreshToken(user)).build();
+	}
+
+	public UserDetailsResponseDto retreiveDetails() {
+		final var user = userRepository.findById(LoggedInUserDetailProvider.getId()).get();
+		return UserDetailsResponseDto.builder().address(user.getAddress()).createdAt(user.getCreatedAt())
+				.emailId(user.getEmailId()).fullName(user.getFullName())
+				.numberOfArticles(user.getArticles() == null ? 0 : user.getArticles().size())
+				.updatedAt(user.getUpdatedAt()).build();
+	}
+
+	public void update(final UserUpdationRequestDto userUpdationRequestDto) {
+		final var user = userRepository.findById(LoggedInUserDetailProvider.getId()).get();
+		user.setFullName(userUpdationRequestDto.getFullName());
+		user.setAddress(userUpdationRequestDto.getAddress());
+		user.setUpdatedAt(LocalDateTime.now(ZoneId.of("+00:00")));
+		userRepository.save(user);
 	}
 
 }
