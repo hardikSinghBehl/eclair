@@ -82,4 +82,8 @@ public class UserService {
 				.refreshToken(tokenRefreshRequestDto.getRefreshToken()).build();
 	}
 
+	public void delete() {
+		userRepository.deleteById(LoggedInUserDetailProvider.getId());
+	}
+
 }
