@@ -13,4 +13,6 @@ public interface UserRepository extends MongoRepository<User, UUID> {
 
 	Optional<User> findByEmailId(final String emailId);
 
+	Optional<User> findByArticlesId(final UUID articleId);
+
 }

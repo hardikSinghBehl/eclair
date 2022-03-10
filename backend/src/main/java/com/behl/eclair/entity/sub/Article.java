@@ -3,6 +3,7 @@ package com.behl.eclair.entity.sub;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -12,6 +13,9 @@ import lombok.Data;
 public class Article implements Serializable {
 
 	private static final long serialVersionUID = 7573916966893973487L;
+
+	@Field(name = "id")
+	private UUID id;
 
 	@Field(name = "title")
 	private String title;
