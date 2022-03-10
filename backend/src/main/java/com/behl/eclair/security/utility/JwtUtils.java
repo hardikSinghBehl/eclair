@@ -64,6 +64,7 @@ public class JwtUtils {
 
 	public String generateRefreshToken(final User user) {
 		Map<String, Object> claims = new HashMap<>();
+		claims.put("user_id", user.getId().toString());
 		return createToken(claims, user.getEmailId(), TimeUnit.DAYS.toMillis(15));
 	}
 
