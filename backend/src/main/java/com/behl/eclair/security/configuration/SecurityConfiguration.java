@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.behl.eclair.security.CustomUserDetailService;
 import com.behl.eclair.security.constant.GetApiPathExclusion;
 import com.behl.eclair.security.constant.PostApiPathExclusion;
+import com.behl.eclair.security.constant.PutApiPathExclusion;
 import com.behl.eclair.security.filter.JwtAuthenticationFilter;
 import com.behl.eclair.security.filter.LoggedInUserDetailStorageFilter;
 
@@ -44,6 +45,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.antMatchers(HttpMethod.POST,
 						List.of(PostApiPathExclusion.values()).stream().map(apiPath -> apiPath.getPath())
+								.toArray(String[]::new))
+				.permitAll()
+				.antMatchers(HttpMethod.PUT,
+						List.of(PutApiPathExclusion.values()).stream().map(apiPath -> apiPath.getPath())
 								.toArray(String[]::new))
 				.permitAll().anyRequest().authenticated().and()
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

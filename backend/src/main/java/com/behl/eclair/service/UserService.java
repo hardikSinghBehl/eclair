@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.behl.eclair.dto.request.TokenRefreshRequestDto;
 import com.behl.eclair.dto.request.UserCreationRequestDto;
 import com.behl.eclair.dto.request.UserLoginRequestDto;
 import com.behl.eclair.dto.request.UserUpdationRequestDto;
@@ -68,6 +69,17 @@ public class UserService {
 		user.setAddress(userUpdationRequestDto.getAddress());
 		user.setUpdatedAt(LocalDateTime.now(ZoneId.of("+00:00")));
 		userRepository.save(user);
+	}
+
+	public TokenResponseDto refreshToken(TokenRefreshRequestDto tokenRefreshRequestDto) {
+		if (jwtUtils.isTokenExpired(tokenRefreshRequestDto.getRefreshToken()))
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+
+		final var userId = jwtUtils.extractUserId(tokenRefreshRequestDto.getRefreshToken());
+		final var user = userRepository.findById(userId).get();
+
+		return TokenResponseDto.builder().accessToken(jwtUtils.generateAccessToken(user))
+				.refreshToken(tokenRefreshRequestDto.getRefreshToken()).build();
 	}
 
 }
