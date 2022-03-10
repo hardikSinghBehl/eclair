@@ -58,7 +58,7 @@ public class JwtUtils {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("user_id", user.getId().toString());
 		claims.put("full_name", user.getFullName());
-		claims.put("account_creation_date", user.getCreatedAt());
+		claims.put("account_creation_date", user.getCreatedAt().toString());
 		return createToken(claims, user.getEmailId(), TimeUnit.MINUTES.toMillis(90));
 	}
 
