@@ -12,3 +12,5 @@ Feature: Creating a new user record
 	  When method POST
 	  Then status 200
 	  * def accessToken = response.accessToken 
+	  * def refreshToken = response.refreshToken 
+

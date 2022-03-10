@@ -6,6 +6,7 @@ function fn() {
 
 	var createUserResult = karate.callSingle('classpath:com/behl/it/eclair/helper/CreateUser.feature', config);
 	config.accessTokenJwt =	createUserResult.accessToken
-
+	config.refreshTokenJwt = createUserResult.refreshToken
+	
 	return config;
 }
