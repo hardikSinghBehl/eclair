@@ -44,7 +44,7 @@ public class UserController {
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "user account updated successfully") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "updates account details")
+	@Operation(summary = "updates logged-in users account details")
 	public ResponseEntity<?> userUpdationHandler(
 			@Valid @RequestBody(required = true) final UserUpdationRequestDto userUpdationRequestDto) {
 		userService.update(userUpdationRequestDto);
@@ -53,7 +53,7 @@ public class UserController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "retreives account details")
+	@Operation(summary = "retreives logged-in users account details")
 	public ResponseEntity<UserDetailsResponseDto> userDetailsRetreivalHandler() {
 		return ResponseEntity.ok(userService.retreiveDetails());
 	}

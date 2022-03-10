@@ -32,7 +32,7 @@ public class ArticleController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "retreives all articles by the logged in user")
+	@Operation(summary = "retreives all articles created by the logged in user")
 	public ResponseEntity<List<Article>> articlesRetreivalHandler() {
 		return ResponseEntity.ok(articleService.retreive());
 	}
