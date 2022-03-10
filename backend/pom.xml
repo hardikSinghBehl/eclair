@@ -23,6 +23,7 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<jjwt.version>0.11.2</jjwt.version>
 	</properties>
 
 	<developers>
@@ -55,19 +56,24 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.11.2</version>
+			<version>${jjwt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.2</version>
+			<version>${jjwt.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.2</version>
+			<version>${jjwt.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
