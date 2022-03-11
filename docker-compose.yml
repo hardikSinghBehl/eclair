@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: eclair
+    networks:
+      - mongo-crud-web-app
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/eclair
+    networks:
+      - mongo-crud-web-app
+
+  karate-tests:
+    build: 
+        context: integration-tests-karate
+        dockerfile: Dockerfile
+    depends_on:
+      - backend
+      - mongo
+    volumes: 
+        - ./target:/test-executor/target
+        - ~/.m2:/root/.m2
+    command: mvn clean test
+    networks:
+      - mongo-crud-web-app
+
+networks:
+  mongo-crud-web-app:
