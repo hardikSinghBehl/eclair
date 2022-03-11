@@ -28,3 +28,4 @@ Feature: User Account Details
 	  Then status 200
 	  * print response
 	  And match response.fullName == changedName
+	  And match response.address == updatedAddress
